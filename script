@@ -1,0 +1,54 @@
+# Cria um novo script chamado 'update-nat-rule'
+# Define que não é necessário permissões especiais para executar o script
+add dont-require-permissions=yes name=update-nat-rule owner=admin policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon source="{
+    # Variável com o nome da interface PPPoE
+    :local pppoeIf \"pppoe\";
+
+    # Obtém o endereço IP atual da interface PPPoE
+    :local pppoeAddr [/ip address get [find interface=\$pppoeIf] address];
+
+    # Atualiza a regra de NAT com o novo endereço IP
+    /ip firewall nat set [find action=src-nat chain=srcnat out-interface=\$pppoeIf] to-addresses=\$pppoeAddr;
+}"
+
+# Cria uma nova tarefa no agendador para executar o script a cada minuto
+add interval=1m name=update-nat-rule on-event=update-nat-rule policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon start-date=2024-03-07 start-time=11:01:00
+
+
+
+
+## Script in English:
+
+**# Create a new script called 'update-nat-rule'**
+**# Define that no special permissions are required to run the script**
+add dont-require-permissions=yes name=update-nat-rule owner=admin policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon source="{
+    # Variable with the PPPoE interface name
+    :local pppoeIf \"pppoe\";
+
+    # Get the current IP address of the PPPoE interface
+    :local pppoeAddr [/ip address get [find interface=\$pppoeIf] address];
+
+    # Update the NAT rule with the new IP address
+    /ip firewall nat set [find action=src-nat chain=srcnat out-interface=\$pppoeIf] to-addresses=\$pppoeAddr;
+}"
+
+**# Create a new scheduler task to run the script every minute**
+add interval=1m name=update-nat-rule on-event=update-nat-rule policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon start-date=2024-03-07 start-time=11:01:00
+
+## Explanations:
+
+* The script defines a variable `pppoeIf` to store the name of the PPPoE interface.
+* It then uses the `/ip address get` command to retrieve the current IP address of the PPPoE interface and stores it in the variable `pppoeAddr`.
+* Finally, the script uses the `/ip firewall nat set` command to update the NAT rule with the new IP address.
+
+## Notes:
+
+* The script assumes that you have a PPPoE interface named `pppoe`.
+* The script will only update the NAT rule if the IP address of the PPPoE interface has changed.
+* You can adjust the interval of the scheduler task to run the script more or less frequently.
+
+## Improvement suggestions:
+
+* You can add error handling to the script to handle cases where the PPPoE interface is not found or the IP address cannot be retrieved.
+* You can add logging to the script to track when the script is run and what actions it takes.
+
