@@ -1,4 +1,4 @@
-Título: Script para Atualização Automática de Regras NAT 1:1 em Conexões PPPoE
+Script para Atualização Automática de Regras NAT 1:1 em Conexões PPPoE
 
 Em redes que utilizam conexão PPPoE, é comum que o endereço IP externo atribuído pelo provedor de internet seja dinâmico, ou seja, mude periodicamente. Quando isso acontece, as regras de NAT 1:1 (Tradução de Endereço de Rede estática) configuradas no roteador precisam ser atualizadas com o novo endereço IP externo para que os serviços e dispositivos internos continuem acessíveis externamente sem interrupções.
 
